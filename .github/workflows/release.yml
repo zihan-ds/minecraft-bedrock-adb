@@ -12,6 +12,9 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    # secrets is not allowed in `if:` expressions, so mirror it into env first.
+    env:
+      MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
 
     steps:
       - name: Checkout
@@ -38,10 +41,8 @@ jobs:
         run: ./gradlew build --no-daemon
 
       - name: Publish to Modrinth
-        if: ${{ secrets.MODRINTH_TOKEN != '' }}
+        if: ${{ env.MODRINTH_TOKEN != '' }}
         run: ./gradlew modrinth --no-daemon
-        env:
-          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
