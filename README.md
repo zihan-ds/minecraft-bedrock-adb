@@ -1,6 +1,6 @@
 # Bedrock Allow Deny Border (bedrock_adb)
 
-[![Build](https://github.com/YOUR_USERNAME/minecraft-bedrock-adb/actions/workflows/build.yml/badge.svg)](https://github.com/YOUR_USERNAME/minecraft-bedrock-adb/actions/workflows/build.yml)
+[![Build](https://github.com/zihan-ds/Minecraft-mod/actions/workflows/build.yml/badge.svg)](https://github.com/zihan-ds/Minecraft-mod/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 A **client-side Fabric mod for Minecraft Java 1.21** that faithfully ports the
