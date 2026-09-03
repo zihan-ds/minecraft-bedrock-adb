@@ -14,8 +14,9 @@ libs/
 bin/
 
 # Game runtime
+# The dev runtime writes config into run/config/ (already ignored above via run/).
+# Do NOT add a bare "config/" here: it would also ignore src/**/config/ packages.
 run/
-config/
 
 # OS / misc
 *.log
