@@ -40,8 +40,26 @@ jobs:
       - name: Build
         run: ./gradlew build --no-daemon
 
+      - name: Check if version already exists on Modrinth
+        id: check-modrinth
+        run: |
+          MOD_VERSION="$(sed -n 's/^mod_version=//p' gradle.properties)"
+          PROJECT_ID="$(sed -n 's/^modrinth_project_id=//p' gradle.properties)"
+          echo "Modrinth project ${PROJECT_ID}, version ${MOD_VERSION}"
+          AUTH_ARGS=()
+          if [ -n "${MODRINTH_TOKEN}" ]; then
+            AUTH_ARGS=(-H "Authorization: Bearer ${MODRINTH_TOKEN}")
+          fi
+          if curl -fsSL "${AUTH_ARGS[@]}" "https://api.modrinth.com/v2/project/${PROJECT_ID}/version" -o versions.json 2>/dev/null \
+             && jq -e --arg v "${MOD_VERSION}" '[.[] | select(.version_number == $v)] | length > 0' versions.json >/dev/null 2>&1; then
+            echo "exists=true" >> "${GITHUB_OUTPUT}"
+            echo "Modrinth version ${MOD_VERSION} already exists - skipping upload"
+          else
+            echo "Modrinth version ${MOD_VERSION} not found - upload will run"
+          fi
+
       - name: Publish to Modrinth
-        if: ${{ env.MODRINTH_TOKEN != '' }}
+        if: ${{ env.MODRINTH_TOKEN != '' && steps.check-modrinth.outputs.exists != 'true' }}
         run: ./gradlew modrinth --no-daemon
 
       - name: Create GitHub Release
