@@ -1,0 +1,77 @@
+plugins {
+    id 'fabric-loom' version '1.17.20'
+    id 'java'
+    id 'com.modrinth.minotaur' version '2.8.7'
+}
+
+version = project.mod_version
+group = project.maven_group
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    // Cloth Config (config GUI)
+    maven {
+        name = 'Shedaniel'
+        url = 'https://maven.shedaniel.me/'
+    }
+    // Mod Menu (stable releases are published on Modrinth's maven)
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modImplementation "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}"
+    modImplementation "maven.modrinth:modmenu:${project.modmenu_version}"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = 'UTF-8'
+    it.options.release = 21
+}
+
+// ---------------------------------------------------------------------------
+// Modrinth publishing (minotaur) - runs only when the `modrinth` task is
+// invoked. Configure it by:
+//   1. Creating the project on https://modrinth.com (loader: Fabric)
+//   2. Setting `modrinth_project_id` in gradle.properties (project slug or ID)
+//   3. Setting the MODRINTH_TOKEN repository secret on GitHub (or MODRINTH_TOKEN
+//      environment variable locally)
+// ---------------------------------------------------------------------------
+def changelogFor(String version) {
+    def file = rootProject.file('CHANGELOG.md')
+    if (!file.exists()) return ''
+    def text = file.text
+    def from = text.indexOf("## [" + version + "]")
+    if (from < 0) return ''
+    from = text.indexOf('\n', from)
+    def to = text.indexOf("\n## [", from + 1)
+    return (to < 0 ? text.substring(from) : text.substring(from, to)).trim()
+}
+
+modrinth {
+    token.set(System.getenv('MODRINTH_TOKEN') ?: '')
+    projectId.set(project.findProperty('modrinth_project_id') ?: 'REPLACE_WITH_MODRINTH_PROJECT_ID')
+    versionNumber.set(project.version as String)
+    versionName.set("bedrock-adb ${project.version}")
+    versionType.set('release')
+    uploadFile.set(tasks.remapJar)
+    gameVersions.add(project.minecraft_version as String)
+    loaders.add('fabric')
+    changelog.set(changelogFor(project.version as String))
+    dependencies {
+        required.project('fabric-api')
+    }
+}

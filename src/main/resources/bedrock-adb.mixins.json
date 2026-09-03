@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.bedrockadb.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "BorderProjectileMixin",
+    "ClientPlayerInteractionManagerMixin",
+    "EntityBorderCollisionMixin",
+    "ExplosiveProjectileBorderMixin",
+    "ShulkerBulletBorderMixin",
+    "ThrownProjectileBorderMixin",
+    "WorldBorderIndexMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

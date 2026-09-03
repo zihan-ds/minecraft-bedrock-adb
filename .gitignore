@@ -1,0 +1,23 @@
+# Gradle / Loom
+.gradle/
+build/
+out/
+libs/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+bin/
+
+# Game runtime
+run/
+config/
+
+# OS / misc
+*.log
+.DS_Store
+Thumbs.db

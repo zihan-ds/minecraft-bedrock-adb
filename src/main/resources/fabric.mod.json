@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "bedrock_adb",
+  "version": "1.2.1+1.21",
+  "name": "Bedrock Allow Deny Border",
+  "description": "Faithful port of the Bedrock Edition Allow, Deny and Border blocks for Java Edition co-op. 在 Java 版中复刻基岩版的允许方块、拒绝方块与边界方块（客户端 Mod，联机所有人共同加载）。1.2.0 新增：边界方块模式选择 + ModMenu/Cloth Config 可视化配置界面；1.2.1 修复：边界方块整列全高度阻挡。",
+  "authors": [
+    "zihan_ds",
+    "bedrock-adb"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "dev.bedrockadb.BedrockAdbMod"
+    ],
+    "client": [
+      "dev.bedrockadb.BedrockAdbClient"
+    ],
+    "modmenu": [
+      "dev.bedrockadb.config.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "bedrock-adb.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.4",
+    "minecraft": "~1.21",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": "*",
+    "cloth-config": "*"
+  }
+}

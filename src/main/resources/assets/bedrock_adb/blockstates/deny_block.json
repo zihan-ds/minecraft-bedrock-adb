@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "bedrock_adb:block/deny_block" }
+  }
+}
