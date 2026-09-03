@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Usage: ./scripts/release.sh 1.2.2
-# Updates the mod version, commits and creates tag v<VERSION>.
+# Updates the mod version in gradle.properties AND fabric.mod.json,
+# then commits and creates tag v<VERSION>.
 set -euo pipefail
 
 VERSION="${1:?Usage: release.sh <version>}"
@@ -14,8 +15,9 @@ fi
 TAG_VERSION="${VERSION%%+*}"   # 1.2.2
 
 sed -i "s/^mod_version=.*/mod_version=${VERSION}/" gradle.properties
+sed -i -E "s/\"version\": \"[^\"]*\"/\"version\": \"${VERSION}\"/" src/main/resources/fabric.mod.json
 
-git add gradle.properties
+git add gradle.properties src/main/resources/fabric.mod.json
 git commit -m "chore: release v${TAG_VERSION}"
 
 git tag "v${TAG_VERSION}"
