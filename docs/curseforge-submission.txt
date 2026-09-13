@@ -1,0 +1,22 @@
+CurseForge submission text - plain English, no markdown
+Project: Bedrock Allow Deny Border (bedrock-adb)
+
+=== SUMMARY (one line, 112 characters - for the "Summary" field) ===
+
+Client-side Fabric mod that brings Bedrock's Allow, Deny and Border blocks to Java 1.21 for co-op worldbuilding.
+
+=== DESCRIPTION (plain text - for the "Description" field) ===
+
+Bedrock Allow Deny Border brings three building-control blocks from Bedrock and Education Edition to Minecraft Java 1.21: Allow, Deny and Border.
+
+Allow and Deny blocks rule a whole column. The nearest allow or deny block below a position decides whether blocks can be placed or broken in that column, and the highest block wins. Border blocks are invisible walls that block the entire vertical column at every Y level, so they cannot be crossed by jumping over them, flying above them, or tunnelling underneath them.
+
+Who may pass a border block is configurable. In the default Bedrock-like mode, unprivileged players and monsters are blocked, while whitelisted or privileged players and spectators pass through, and projectiles pass as well. In the "block all entities" mode, everything is stopped except privileged players and spectators. Privileges come from a global whitelist, a per-block whitelist, or from being an operator (permission level 2, optionally requiring Creative mode).
+
+The mod is client-side. Every player on a LAN world needs the same mod version installed, because the rules are evaluated on each client, and the host pushes configuration changes to everyone live. Mod Menu and Cloth Config are supported for a visual config screen but are optional at runtime; all settings can also be changed with the /allowdeny commands.
+
+Requirements: Minecraft Java 1.21, Fabric Loader 0.19.4 or newer, and Fabric API. Mod Menu 11.0.x and Cloth Config 15.0.140 are optional.
+
+Get the blocks from the "Bedrock Allow / Deny / Border" creative tab, or with /give @s bedrock_adb:allow_block.
+
+Version scheme is {mod_version}+{mc_version}, for example 1.2.1+1.21. Licensed under MIT.

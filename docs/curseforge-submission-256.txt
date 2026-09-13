@@ -1,0 +1,18 @@
+CurseForge submission text - plain English, max 256 characters each
+Project: Bedrock Allow Deny Border (bedrock-adb)
+
+=== SUMMARY - option 1 (recommended) ===
+
+Bedrock's Allow, Deny and Border blocks ported to Minecraft Java 1.21. Column-based build permissions and invisible full-height border walls. Client-side Fabric mod for co-op worldbuilding.
+
+=== SUMMARY - option 2 (shorter) ===
+
+A client-side Fabric mod bringing Bedrock's Allow, Deny and Border blocks to Minecraft Java 1.21 for co-op map building.
+
+=== DESCRIPTION (fits 256 characters) ===
+
+Client-side Fabric mod for Java 1.21. Allow and Deny blocks control building in a whole column; Border blocks are invisible walls blocking that column at every height. Rules are per client, so every LAN player needs it. Fabric API required.
+
+=== DESCRIPTION - option 2 (feature-led) ===
+
+Brings Bedrock's Allow, Deny and Border blocks to Java 1.21. Allow/Deny govern build rights per column, Border blocks wall off a column at every height. Whitelist or OP bypass, live config sync on LAN. Needs Fabric API.
