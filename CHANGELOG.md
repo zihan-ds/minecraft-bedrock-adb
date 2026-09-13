@@ -2,6 +2,18 @@
 
 Version scheme: `{mod_version}+{mc_version}` since `1.2.1`; git tags use `v{mod_version}`.
 
+## [1.2.2+1.21] — 2026-09-13
+
+### Added
+- CurseForge publishing: pushing a `v*` tag now uploads the jar to CurseForge
+  through the official upload API, with the `Client` environment tag, in the
+  same workflow that already publishes to Modrinth.
+
+### Notes
+- No gameplay or behaviour changes in this release; identical mod code to
+  `1.2.1+1.21`, re-released so that the CurseForge file can be published
+  automatically (CurseForge rejects a duplicate version number).
+
 ## [1.2.1+1.21] — 2026-09-03
 
 ### Fixed
