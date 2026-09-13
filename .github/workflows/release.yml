@@ -87,18 +87,21 @@ jobs:
             --arg display "bedrock-adb ${MOD_VERSION}" \
             --arg changelog "$(cat cf-changelog.md)" \
             '{displayName: $display, changelog: $changelog, changelogType: "markdown", releaseType: "release", gameVersionNames: ["1.21", "Fabric", "Client", "Java 21"]}' > cf-metadata.json
-          # The metadata JSON must be sent verbatim as a form field. `-F` is not
-          # usable here: it expands `\n` inside the value into real newlines, so
-          # CurseForge receives a multi-line document and answers errorCode 1002
-          # "Invalid JSON". `--form-string` passes the payload through unchanged
-          # and also keeps `@`/`<` from being read as file references. The part
-          # still has to declare itself as JSON.
+          # The metadata JSON must be sent verbatim, as a plain string field:
+          #   * `-F` expands `\n` inside the value into real newlines, so the JSON
+          #     arrives multi-line and CurseForge answers 1002 "Invalid JSON";
+          #   * the `;type=...` suffix is only parsed for *file* parts, so on a
+          #     string field it is appended to the JSON itself - which turns an
+          #     otherwise accepted payload into "Invalid JSON" again;
+          #   * sending metadata as a file part gets 1001 "Missing field `metadata`".
+          # Verified on the runner against a non-existent project id: only the
+          # bare --form-string below reaches "Invalid `projectID`" (JSON accepted).
           METADATA="$(jq -c . cf-metadata.json)"
           echo "Uploading ${JAR} with metadata (${#METADATA} bytes):"
           echo "${METADATA}"
           HTTP_CODE="$(curl -sS --max-time 300 -o cf-response.json -w '%{http_code}' \
             -H "X-Api-Token: ${CURSEFORGE_TOKEN}" \
-            --form-string "metadata=${METADATA};type=application/json" \
+            --form-string "metadata=${METADATA}" \
             -F "file=@${JAR}" \
             "https://legacy.curseforge.com/api/projects/${CURSEFORGE_PROJECT_ID}/upload-file")"
           cat cf-response.json || true
