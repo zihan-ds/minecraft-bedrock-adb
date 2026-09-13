@@ -87,15 +87,16 @@ jobs:
             --arg display "bedrock-adb ${MOD_VERSION}" \
             --arg changelog "$(cat cf-changelog.md)" \
             '{displayName: $display, changelog: $changelog, changelogType: "markdown", releaseType: "release", gameVersionNames: ["1.21", "Fabric", "Client", "Java 21"]}' > cf-metadata.json
-          # The metadata JSON must be a form *field* value, not a file part:
-          # sending it as metadata=@file.json makes CurseForge answer
-          # "Missing field `metadata`" (errorCode 1001).
+          # The metadata JSON must be a form *field* value that declares itself as
+          # JSON: sending it as a file part (metadata=@file.json) makes CurseForge
+          # answer "Missing field `metadata`", and a bare string field without the
+          # content type is rejected with "Invalid JSON".
           METADATA="$(jq -c . cf-metadata.json)"
           echo "Uploading ${JAR} with metadata (${#METADATA} bytes):"
           echo "${METADATA}"
           HTTP_CODE="$(curl -sS --max-time 300 -o cf-response.json -w '%{http_code}' \
             -H "X-Api-Token: ${CURSEFORGE_TOKEN}" \
-            -F "metadata=${METADATA}" \
+            -F "metadata=${METADATA};type=application/json" \
             -F "file=@${JAR}" \
             "https://legacy.curseforge.com/api/projects/${CURSEFORGE_PROJECT_ID}/upload-file")"
           cat cf-response.json || true
