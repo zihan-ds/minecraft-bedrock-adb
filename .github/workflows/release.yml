@@ -15,6 +15,8 @@ jobs:
     # secrets is not allowed in `if:` expressions, so mirror it into env first.
     env:
       MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+      CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+      CURSEFORGE_PROJECT_ID: ${{ vars.CURSEFORGE_PROJECT_ID }}
 
     steps:
       - name: Checkout
@@ -61,6 +63,43 @@ jobs:
       - name: Publish to Modrinth
         if: ${{ env.MODRINTH_TOKEN != '' && steps.check-modrinth.outputs.exists != 'true' }}
         run: ./gradlew modrinth --no-daemon
+
+      - name: Publish to CurseForge
+        if: ${{ env.CURSEFORGE_TOKEN != '' && env.CURSEFORGE_PROJECT_ID != '' }}
+        run: |
+          set -eu
+          # Never echo the token (it is a project-scoped upload credential).
+          echo "::add-mask::${CURSEFORGE_TOKEN}"
+          MOD_VERSION="$(sed -n 's/^mod_version=//p' gradle.properties)"
+          JAR="build/libs/bedrock-adb-${MOD_VERSION}.jar"
+          test -f "${JAR}"
+          # Changelog section for the current version, taken from CHANGELOG.md.
+          # (Output uses a distinct name: on case-insensitive filesystems
+          # "changelog.md" would clobber the tracked CHANGELOG.md.)
+          awk -v v="${MOD_VERSION}" '
+            index($0, "## [" v "]") == 1 { found=1; next }
+            found && index($0, "## [") == 1 { exit }
+            found { print }
+          ' CHANGELOG.md > cf-changelog.md
+          # Environment tags are part of the game version list on CurseForge.
+          # This mod is client-side only (fabric.mod.json "environment": "client").
+          jq -n \
+            --arg display "bedrock-adb ${MOD_VERSION}" \
+            --arg changelog "$(cat cf-changelog.md)" \
+            '{displayName: $display, changelog: $changelog, changelogType: "markdown", releaseType: "release", gameVersionNames: ["1.21", "Fabric", "Client", "Java 21"]}' > cf-metadata.json
+          echo "Uploading ${JAR}:"
+          cat cf-metadata.json
+          HTTP_CODE="$(curl -sS --max-time 300 -o cf-response.json -w '%{http_code}' \
+            -H "X-Api-Token: ${CURSEFORGE_TOKEN}" \
+            -F "metadata=@cf-metadata.json;type=application/json" \
+            -F "file=@${JAR}" \
+            "https://legacy.curseforge.com/api/projects/${CURSEFORGE_PROJECT_ID}/upload-file")"
+          cat cf-response.json || true
+          if [ "${HTTP_CODE}" != "200" ] || ! jq -e '.id' cf-response.json >/dev/null 2>&1; then
+            echo "::error::CurseForge upload failed (http ${HTTP_CODE})"
+            exit 1
+          fi
+          echo "CurseForge file id: $(jq -r '.id' cf-response.json)"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

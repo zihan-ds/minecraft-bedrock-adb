@@ -85,7 +85,13 @@ Fabric Loader `0.19.5` · Fabric API `0.102.0+1.21`.
   `v1.2.1`.
 - Pushing a `v*` tag runs CI which attaches the jar to a GitHub Release and —
   once `MODRINTH_TOKEN` is configured as a repository secret — publishes it to
-  Modrinth automatically. See `CHANGELOG.md` for release notes.
+  Modrinth automatically. The same workflow uploads to CurseForge through the
+  official upload API; it needs the `CURSEFORGE_TOKEN` repository secret (the
+  project's upload token) plus a `CURSEFORGE_PROJECT_ID` repository variable
+  (numeric project id), and is skipped entirely when either is missing. Unlike
+  the Modrinth step, the CurseForge upload is not idempotent: re-releasing an
+  unchanged `mod_version` fails, so bump the version (or reuse the GitHub
+  Release without re-running the upload). See `CHANGELOG.md` for release notes.
 
 ## Credits
 
