@@ -1,0 +1,36 @@
+CurseForge project submission form - field values
+Project: Bedrock Allow Deny Border (bedrock-adb)
+Category list source: api.curseforge.com/v1/categories?gameId=432 (Class "Mods" = id 6)
+
+=== Class ===
+Mods                                          <- already selected, keep it
+
+=== Main category ===
+Map and Information                           (Mods category id 423)
+
+=== Additional categories ===
+Utility & QoL                                 (Mods category id 5191)
+Adventure and RPG                             (Mods category id 422)
+
+=== Allow Comments ===
+CHECKED - lets users report bugs and ask questions on the project page.
+
+=== Unlisted project ===
+UNCHECKED - keep the project listed and searchable.
+
+=== Social Links (optional) ===
+Add Socials -> GitHub: https://github.com/zihan-ds/minecraft-bedrock-adb
+Add Socials -> Modrinth: https://modrinth.com/mod/minecraft-bedrock-adb
+(only add the Modrinth link once that project page is reachable)
+
+=== Project License ===
+MIT License                                   <- matches LICENSE and fabric.mod.json
+
+=== Project distribution ===
+Allow distribution to 3rd party              <- MIT project, meant to be shared freely
+
+=== Later fields on the same page (for reference) ===
+Mod loader / Game version: Fabric, 1.21
+Environment: Client only
+Summary / Description: see docs/curseforge-submission-256.txt
+Logo: docs/curseforge-logo-512.png
