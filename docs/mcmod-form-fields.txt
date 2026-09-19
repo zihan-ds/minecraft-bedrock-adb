@@ -24,9 +24,15 @@ MODID           bedrock_adb （取自 fabric.mod.json 的 id，大小写敏感�
                 （先在作者搜索里搜；已存在则直接关联，职位选「所有者」或「程序」；
                  搜不到再新建，避免重复作者条目）
 开源状态        开源
-许可协议        MIT
-                （源码 / 资产 / 构件 三项均声明 MIT；
-                 源码链接：https://github.com/zihan-ds/minecraft-bedrock-adb）
+许可协议        条件组的「条件」保持默认的「通用」，组内填一行即可：
+                  范围（默认）        = 默认
+                  声明许可协议为      = [MIT] MIT License
+                  开源信息链接（选填）= https://github.com/zihan-ds/minecraft-bedrock-adb
+                  开源信息备注（选填）= 留空
+                （站点说明里的「源码 / 资产 / 构件」是把 范围 下拉展开后的选项，
+                  只声明一种时保持「默认」即可覆盖三者，不需要建三个条件行；
+                  链接指向仓库，LICENSE 文件即 MIT 原文。
+                  MIT 也由站点给出的标准协议列表提供，直接选，不要手写。）
 改动说明        （提交时填写）新建模组条目：Bedrock Allow Deny Border（bedrock_adb），
                 Java 1.21 的客户端 Fabric 模组，信息与 CurseForge / Modrinth 一致。
 
@@ -34,7 +40,11 @@ MODID           bedrock_adb （取自 fabric.mod.json 的 id，大小写敏感�
 
 官方状态        活跃
 CurseForge Project ID   1693658
-Modrinth Project ID     mtk2daDL （站点要求 8 位字符串，此处正好 8 位）
+                （纯数字 ID，不是链接；已与仓库 gradle.properties 的
+                  curseforge_project_id 以及 GitHub 仓库变量核对一致）
+Modrinth Project ID     mtk2daDL
+                （站点要求 8 位字符串，此处正好 8 位；这是项目 ID，不是链接，
+                  所以不受下方「Modrinth 页面未公开」的影响）
 模组关系        前置：Fabric API（条件写「通用」）
                 扩展：无
                 联动：无
