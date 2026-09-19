@@ -1,0 +1,79 @@
+MC 百科（mcmod.cn）提交资料 - Bedrock Allow Deny Border
+字段名取自站点语言文件（static.mcmod.cn/public/lang/zh_cn.json 的 class 节点），
+提交入口：https://www.mcmod.cn/class/add/ （需登录）
+
+=== 必填字段 ===
+
+主要名称        Bedrock Allow Deny Border
+                （站点规则：无官方汉化时，主要名称填其他语言名，不要自行译成中文）
+次要名称        （留空）
+缩写名称        ADB
+支持平台        JAVA版 (JAVA Edition)
+运作方式        Fabric
+模组元素        （核心元素只能选一项）实用
+                —— 若下拉中没有「实用」，改用「辅助」
+支持MC版本      1.21 （只勾这一项）
+                （站点规则：只勾「作者声称支持 + 实际支持」；
+                 fabric.mod.json 为 "minecraft": "~1.21"，不要勾 1.21.1）
+MODID           bedrock_adb （取自 fabric.mod.json 的 id，大小写敏感）
+运行环境        客户端 = 需装；服务端 = 无效
+封面            上传 docs/mcmod-cover-720x450.png （720x450，16:10，站点会自动转换尺寸）
+简介            （一句话）在 Java 版复刻基岩版的允许、拒绝与边界方块，用于合作地图的区域建造与通行控制。
+正文            （粘贴 docs/mcmod-description.md 全文；在编辑器里先「清除格式」再粘贴）
+作者            zihan_ds
+                （先在作者搜索里搜；已存在则直接关联，职位选「所有者」或「程序」；
+                 搜不到再新建，避免重复作者条目）
+开源状态        开源
+许可协议        MIT
+                （源码 / 资产 / 构件 三项均声明 MIT；
+                 源码链接：https://github.com/zihan-ds/minecraft-bedrock-adb）
+改动说明        （提交时填写）新建模组条目：Bedrock Allow Deny Border（bedrock_adb），
+                Java 1.21 的客户端 Fabric 模组，信息与 CurseForge / Modrinth 一致。
+
+=== 选填但建议填写 ===
+
+官方状态        活跃
+CurseForge Project ID   1693658
+Modrinth Project ID     mtk2daDL （站点要求 8 位字符串，此处正好 8 位）
+模组关系        前置：Fabric API（条件写「通用」）
+                扩展：无
+                联动：无
+                （Mod Menu 与 Cloth Config 是可选的图形配置界面支持，不属于前置）
+相关链接        CurseForge = https://www.curseforge.com/minecraft/mc-mods/<slug>
+                Modrinth   = https://modrinth.com/mod/minecraft-bedrock-adb
+                GitHub     = https://github.com/zihan-ds/minecraft-bedrock-adb
+                （站点有专门规则：链接结尾不能带 /files、/gallery、/versions、
+                  /changelog 等冗余后缀，也不要有 ?spm= / __cf_chl_tk 之类参数；
+                  与模组无直接关系的作者个人链接应放到作者页面。）
+模组标签        建议：客户端、辅助、建筑、多人
+                （以标签框里实际可选值为准）
+搜索辅助关键词  留空
+                （站点明确警告「禁止滥用，不清楚用法请留空」）
+
+=== 待你确认的一项 ===
+
+CurseForge 链接的 slug：暂按项目名记为 bedrock-allow-deny-border，
+但本机访问 curseforge.com 被 Cloudflare 拦截、v1 API 需要 key，无法核实。
+请打开 CurseForge 项目页，把地址栏里的 URL 发我，或自行填对。
+
+=== 提交步骤 ===
+
+1. 登录 mcmod.cn（无账号则先注册），打开 https://www.mcmod.cn/class/add/
+2. 按上表填字段；正文先在编辑器里点「清除格式」，再粘贴
+   docs/mcmod-description.md 的内容。
+3. 上传封面 docs/mcmod-cover-720x450.png。
+4. 填写改动说明、输入人机验证码，提交。
+5. 在 https://www.mcmod.cn/verify/ 查看审核状态。
+   站点规则：提交满 24 小时后可以催审，之后每隔 1 小时可再催一次。
+   若你的用户组有免审权限，编辑器顶部会提示。
+6. 审核通过后把条目 URL 发我，我核对「支持平台 / 运作方式 / 模组元素 /
+   支持MC版本 / 运行环境 / 开源状态 / CFID / MRID」是否与本地记录一致。
+
+=== 版本日志（条目通过后可选补充） ===
+
+站点为模组版本单独提供「日志」字段：Mod版本号 / MC版本 / 更新日期。
+
+Mod版本号    1.2.2+1.21
+MC版本       1.21
+更新日期     2026-09-13
+内容         新增 CurseForge 发布支持；模组代码与 1.2.1+1.21 相同。
