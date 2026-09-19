@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>MC baike body text</title></head><body>
+<h2>概述</h2>
+<p>本模组是面向 Minecraft Java 版 1.21 的 Fabric <strong>客户端</strong>模组，将基岩版与教育版中的<strong>允许方块</strong>、<strong>拒绝方块</strong>与<strong>边界方块</strong>复刻到 Java 版，用于单人地图制作与局域网（LAN）联机合作。</p>
+<p>三种方块都由玩家自由放置与拆除，规则在客户端之间共同判定，因此适合搭建需要划分区域、限制通行范围的地图。</p>
+<h2>三种方块的作用范围</h2>
+<p>允许方块与拒绝方块按<strong>列</strong>生效。某个位置能否放置或破坏方块，由该位置正下方最近的一个允许或拒绝方块决定，同一列中位置更高的方块优先。方块本身不可被活塞推动，且具有极高的爆炸抗性。</p>
+<p>边界方块是<strong>整列全高度</strong>的隐形墙。它会阻挡所在 (x, z) 列从世界底部到顶部的每一个高度，因此垫高跳跃、飞行或鞘翅、从下方挖掘隧道都无法绕过。默认条件下边界方块带有粒子提示（可在配置中关闭），便于看清隐形墙的位置。</p>
+<h2>通行规则与两种模式</h2>
+<p>边界方块的通行判定提供两种模式，可在配置界面或命令中切换。允许方块与拒绝方块的判定不受此选项影响。</p>
+<table>
+<tr><th>通行实体</th><th>仿基岩版（默认）</th><th>拦截所有实体</th></tr>
+<tr><td>非特权玩家</td><td>阻挡</td><td>阻挡</td></tr>
+<tr><td>怪物与动物</td><td>阻挡</td><td>阻挡</td></tr>
+<tr><td>特权玩家</td><td>放行</td><td>放行</td></tr>
+<tr><td>旁观者</td><td>放行</td><td>放行</td></tr>
+<tr><td>箭与三叉戟等投射物</td><td>放行</td><td>阻挡</td></tr>
+<tr><td>掉落物与经验球等实体</td><td>阻挡</td><td>阻挡</td></tr>
+<tr><td>恼鬼与末影龙</td><td>放行</td><td>阻挡</td></tr>
+</table>
+<p>在「拦截所有实体」模式下，玩家自己射出的投射物也会被边界墙阻挡，属于预期行为。</p>
+<h2>特权玩家与白名单</h2>
+<p>满足以下任一条件即视为特权玩家，可以穿过边界方块，也可以放置与破坏允许、拒绝、边界方块：</p>
+<ol><li>处于 <code>/allowdeny whitelist</code> 维护的全局白名单中；</li><li>处于该<strong>单个边界方块</strong>的物品数据组件白名单中（地图作者在放置前写入名单）；</li><li>拥有 2 级权限（OP），是否额外要求创造模式由配置项决定。</li></ol>
+<p>管理员可以通过命令关闭 OP 的豁免，使 OP 与普通玩家一样被边界方块阻挡，便于地图测试。</p>
+<h2>配置方式</h2>
+<p>模组支持图形配置界面与命令配置两种方式，二者完全等价。图形界面由 Mod Menu 提供入口、由 Cloth Config 渲染，这两个模组均为<strong>可选</strong>：两者都安装时会出现「配置」按钮，缺少任一个时按钮自动隐藏且不会报错，此时请使用命令配置。</p>
+<p>配置项包括边界方块模式、特权玩家是否必须处于创造模式、管理员是否可绕过规则、是否显示边界方块粒子特效。主机修改配置后会立即同步给局域网内的所有玩家，无需重新进入世界。</p>
+<h2>命令</h2>
+<p>所有命令需要 2 级权限（OP），前缀为 <code>/allowdeny</code>。</p>
+<table>
+<tr><th>命令</th><th>作用</th></tr>
+<tr><td><code>/allowdeny config borderMode bedrock_like</code></td><td>将边界方块切换为仿基岩版模式</td></tr>
+<tr><td><code>/allowdeny config borderMode block_all_entities</code></td><td>将边界方块切换为拦截所有实体</td></tr>
+<tr><td><code>/allowdeny config requireCreative <true/false></code></td><td>设置特权是否必须处于创造模式</td></tr>
+<tr><td><code>/allowdeny config opBypass <true/false></code></td><td>设置管理员是否可绕过规则</td></tr>
+<tr><td><code>/allowdeny config showBorderEffect <true/false></code></td><td>设置边界方块粒子特效</td></tr>
+<tr><td><code>/allowdeny reload</code></td><td>从磁盘重载配置文件并同步</td></tr>
+<tr><td><code>/allowdeny whitelist add <玩家名></code></td><td>将玩家加入全局白名单</td></tr>
+<tr><td><code>/allowdeny whitelist remove <玩家名></code></td><td>将玩家移出全局白名单</td></tr>
+<tr><td><code>/allowdeny whitelist list</code></td><td>查看当前全局白名单</td></tr>
+<tr><td><code>/allowdeny whitelist clear</code></td><td>清空全局白名单</td></tr>
+<tr><td><code>/allowdeny query <x y z></code></td><td>查询该坐标受哪个允许或拒绝方块管辖</td></tr>
+</table>
+<p>配置文件位于 <code>config/bedrock-adb.json</code>，手动修改后执行 <code>/allowdeny reload</code> 生效；非法的取值会自动回落为默认值。旧版本（1.1.3）的配置文件没有边界方块模式字段，升级后按「仿基岩版」处理，无需手动修改。</p>
+<h2>安装要求</h2>
+<table>
+<tr><th>类别</th><th>内容</th><th>是否必需</th></tr>
+<tr><td>游戏版本</td><td>Minecraft Java 版 1.21</td><td>必需</td></tr>
+<tr><td>加载器</td><td>Fabric Loader 0.19.4 或更高</td><td>必需</td></tr>
+<tr><td>Fabric API</td><td>任意 1.21 版本</td><td>必需</td></tr>
+<tr><td>Mod Menu</td><td>11.0.x</td><td>可选</td></tr>
+<tr><td>Cloth Config</td><td>15.0.140</td><td>可选</td></tr>
+</table>
+<p>方块的获取方式为创造模式物品栏中的「Bedrock Allow / Deny / Border」分类，或使用 <code>/give @s bedrock_adb:allow_block</code> 等命令。</p>
+<h2>注意事项</h2>
+<p>本模组只安装在客户端。局域网联机时，<strong>所有参与者都必须安装同一版本</strong>的模组，规则才能在各客户端之间正确判定；配置由主机修改并自动同步，其他玩家无法修改。本模组<strong>不能</strong>用于专用服务器，请勿放入专用服务器的 <code>mods</code> 目录。</p>
+<p>少数非标准的自定义飞行实体（例如旋风人风弹、钓鱼浮标）不在拦截范围内，属于已知边界。</p>
+<h2>开源与版本</h2>
+<p>本模组以 MIT 协议开源，源代码托管在 GitHub，并在 CurseForge 与 Modrinth 发布。版本号采用 <code>{模组版本}+{MC版本}</code> 格式，例如 <code>1.2.2+1.21</code>。</p>
+</body></html>
