@@ -40,7 +40,7 @@ Modrinth Project ID     mtk2daDL （站点要求 8 位字符串，此处正好 8
                 联动：无
                 （Mod Menu 与 Cloth Config 是可选的图形配置界面支持，不属于前置）
 相关链接        CurseForge = https://www.curseforge.com/minecraft/mc-mods/<slug>
-                Modrinth   = https://modrinth.com/mod/minecraft-bedrock-adb
+                Modrinth   = 暂不填写（见下方「待你确认/注意的两项」第 1 条）
                 GitHub     = https://github.com/zihan-ds/minecraft-bedrock-adb
                 （站点有专门规则：链接结尾不能带 /files、/gallery、/versions、
                   /changelog 等冗余后缀，也不要有 ?spm= / __cf_chl_tk 之类参数；
@@ -50,11 +50,19 @@ Modrinth Project ID     mtk2daDL （站点要求 8 位字符串，此处正好 8
 搜索辅助关键词  留空
                 （站点明确警告「禁止滥用，不清楚用法请留空」）
 
-=== 待你确认的一项 ===
+=== 待你确认/注意的两项 ===
 
-CurseForge 链接的 slug：暂按项目名记为 bedrock-allow-deny-border，
-但本机访问 curseforge.com 被 Cloudflare 拦截、v1 API 需要 key，无法核实。
-请打开 CurseForge 项目页，把地址栏里的 URL 发我，或自行填对。
+1) Modrinth 项目目前不可公开访问：api.modrinth.com/v2/project/mtk2daDL 返回 404，
+   而同一次实测中对照项目（sodium、fabric-api）正常返回，说明该项目已上传但仍在
+   Modrinth 审核队列中，未公开。站点会校验「相关链接」里的地址能否正常访问，
+   所以在 Modrinth 页面可访问之前，先不要填 Modrinth 链接（先只填 CurseForge
+   与 GitHub）；等审核通过后再编辑条目补上。
+
+   Modrinth Project ID 字段可以先填 mtk2daDL（那是项目 ID，不是链接）。
+
+2) CurseForge 链接的 slug：暂按项目名记为 bedrock-allow-deny-border，
+   但本机访问 curseforge.com 被 Cloudflare 拦截、v1 API 需要 key，无法核实。
+   请打开 CurseForge 项目页，把地址栏里的 URL 发我，或自行填对。
 
 === 提交步骤 ===
 
