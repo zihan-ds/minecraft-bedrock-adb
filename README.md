@@ -3,7 +3,7 @@
 [![Build](https://github.com/zihan-ds/minecraft-bedrock-adb/actions/workflows/build.yml/badge.svg)](https://github.com/zihan-ds/minecraft-bedrock-adb/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A **client-side Fabric mod for Minecraft Java 1.21** that faithfully ports the
+A **client-side Fabric mod for Minecraft Java ** that faithfully ports the
 Bedrock / Education Edition **Allow**, **Deny** and **Border** blocks to Java
 Edition, designed for single-player and **LAN co-op** worldbuilding.
 
@@ -108,7 +108,7 @@ into `1.2.x` (border modes, whole-column barrier, config GUI). See
 
 ## 中文简介
 
-**Bedrock Allow Deny Border（bedrock_adb）** 是 Minecraft Java 1.21 的 Fabric
+**Bedrock Allow Deny Border（bedrock_adb）** 是 Minecraft Java 的 Fabric
 **客户端** Mod：在 Java 版中复刻基岩版教学用的**允许方块 / 拒绝方块 / 边界方块**
 （适合单人/局域网合作地图制作）：
 
